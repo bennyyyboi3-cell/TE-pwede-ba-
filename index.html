@@ -5,66 +5,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valentine Fun 💖</title>
 <style>
+/* Body & Background */
 body {
     margin:0;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background: linear-gradient(135deg,#ff9ecf,#ff4f81);
-    font-family:Arial,sans-serif;
+    background: radial-gradient(circle at center, #ffe6f0, #ffb6c1);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
     overflow:hidden;
     flex-direction: column;
 }
 
+/* Container */
 .container {
     text-align:center;
-    padding:5vh 5vw;
     position: relative;
     z-index: 1;
 }
 
-h1 { color:white; margin-bottom:3vh; font-size:4vw; }
+/* Shy Bear GIF */
+#shyBear {
+    width: 150px;
+    max-width: 25vw;
+    margin-bottom: 2vh;
+    animation: floatBear 2s ease-in-out infinite alternate;
+}
+@keyframes floatBear { 0% {transform: translateY(0);} 100% {transform: translateY(-10px);} }
 
+/* Title */
+h1 {
+    color:#ff2e63;
+    margin-bottom:3vh;
+    font-size:5vw;
+    text-shadow: 2px 2px #fff;
+}
+
+/* Buttons container */
 .buttons {
     position:relative;
-    height:15vh;
+    display:flex;
+    justify-content:center;
+    gap:3vw;
     margin-top:2vh;
 }
 
+/* Buttons */
 button {
-    padding:1.5vh 3vw;
-    font-size:1.5vw;
+    padding:2vh 4vw;
+    font-size:2vw;
     border:none;
     cursor:pointer;
-    position:absolute;
-    transition: transform 0.5s ease, all 0.5s ease;
-    z-index: 2;
-    border-radius:20px;
+    transition: transform 0.3s ease, all 0.3s ease;
+    border-radius:25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
+/* Yes Button */
 #yesBtn {
-    background: #28a745; 
-    color: white;
-    left:0;
+    background: #28a745;
+    color:white;
+    animation: glow 2s infinite alternate;
+}
+#yesBtn:hover { transform: scale(1.1); }
+@keyframes glow {
+    0% { box-shadow: 0 0 10px #28a745; }
+    100% { box-shadow: 0 0 25px #28a745; }
 }
 
+/* No Button */
 #noBtn {
     background:white;
     color:#ff2e63;
-    left:16vw; 
+    font-weight:bold;
 }
 
+/* Message */
 .message {
     margin-top:2vh;
     font-size:2vw;
-    color:white;
+    color:#ff2e63;
     display:none;
     font-weight:bold;
     text-align:center;
     z-index: 3;
 }
 
+/* Final Screen */
 .finalMessage {
     display:none;
     flex-direction: column;
@@ -79,92 +107,53 @@ button {
     font-family: 'Comic Sans MS', cursive, sans-serif;
 }
 
-/* Floating bear GIF with glow */
+/* Bear GIF in final screen */
 .finalMessage img {
     width: 25vw;
     max-width:250px;
     height:auto;
     border-radius: 20px;
-    box-shadow: 0 0 25px #ff69b4;
+    box-shadow: 0 0 30px #ff69b4;
     animation: floatBear 2s ease-in-out infinite alternate;
 }
 
-@keyframes floatBear {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-20px); }
-}
-
+/* Final Text */
 .finalMessage p {
     font-size:2.5vw;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 2px 2px #ff69b4;
+    color:white;
+    font-weight:bold;
+    text-align:center;
+    text-shadow:2px 2px #fff;
 }
 
 /* Fireworks */
-.firework {
-    position: absolute;
-    width: 5px;
-    height: 5px;
-    background: yellow;
-    border-radius: 50%;
-    opacity: 0;
-    animation: explode 1s infinite;
-}
-
-.firework.left { left: 0; }
-.firework.right { right: 0; }
-
-@keyframes explode {
-    0% { transform: scale(0) translateY(0); opacity: 1;}
-    50% { transform: scale(2) translateY(-20px); opacity: 1;}
-    100% { transform: scale(0) translateY(-40px); opacity: 0;}
-}
+.firework { position:absolute; width:5px; height:5px; background:yellow; border-radius:50%; opacity:0; animation:explode 1s infinite; }
+.firework.left { left:0; } .firework.right { right:0; }
+@keyframes explode { 0%{transform:scale(0) translateY(0);opacity:1;} 50%{transform:scale(2) translateY(-20px);opacity:1;} 100%{transform:scale(0) translateY(-40px);opacity:0;} }
 
 /* Floating hearts */
-.heartFloat {
-    position: absolute;
-    font-size: 3vw;
-    animation: floatUp 3s ease-in forwards;
-    opacity: 0;
-}
-@keyframes floatUp {
-    0% { transform: translateY(0); opacity:1; }
-    100% { transform: translateY(-200px); opacity:0; }
-}
+.heartFloat { position:absolute; font-size:3vw; animation: floatUp 3s ease-in forwards; opacity:0; }
+@keyframes floatUp { 0%{transform:translateY(0);opacity:1;} 100%{transform:translateY(-200px);opacity:0;} }
 
 /* Sparkles */
-.sparkle {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: sparkleAnim 2s infinite;
-}
-@keyframes sparkleAnim {
-    0% { transform: scale(0); opacity: 0.8; }
-    50% { transform: scale(1.5); opacity: 1; }
-    100% { transform: scale(0); opacity: 0; }
-}
+.sparkle { position:absolute; width:6px; height:6px; background:white; border-radius:50%; opacity:0.8; animation:sparkleAnim 2s infinite; }
+@keyframes sparkleAnim { 0%{transform:scale(0);opacity:0.8;} 50%{transform:scale(1.5);opacity:1;} 100%{transform:scale(0);opacity:0;} }
 
-/* Mobile adjustments */
-@media (max-width: 600px) {
-    h1 { font-size:6vw; }
-    button { font-size:4vw; padding:2vw 4vw; border-radius:15px; }
-    #yesBtn { left:2vw !important; }
-    #noBtn { left:40vw !important; }
-    .finalMessage img { width:40vw; max-width:200px; }
-    .finalMessage p { font-size:5vw; }
+/* Mobile */
+@media(max-width:600px){
+    #shyBear { width: 30vw; }
+    h1{font-size:6vw;}
+    button{font-size:4vw;padding:3vw 5vw;border-radius:15px;}
+    .finalMessage img{width:40vw;max-width:200px;}
+    .finalMessage p{font-size:5vw;}
 }
 </style>
 </head>
 <body>
 
 <div class="container" id="mainContainer">
-    <h1>Te!! well u be my valentine HAHA</h1>
+    <img id="shyBear" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdzRlZm12cmt1dnBnczliOWk1N2Zwbzc1Z3U1aXY4aHpsbnViaG1sOCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6Ee25N9KcBPtSrJFVz/giphy.gif" alt="Shy bear">
+    <h1>Te! well u be my valentine HAHA</h1>
     <div class="buttons">
         <button id="yesBtn">Yes</button>
         <button id="noBtn">No</button>
@@ -174,113 +163,119 @@ button {
 
 <div class="finalMessage" id="finalMessage">
     <div id="fireworks"></div>
-
-    <!-- Animated bear holding roses -->
-    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzB0ajU1cmdnODVnZDdqcDV2MDY4YWlpcGQ3Z3R3amc1bjU2cTA0NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NxC8VtyxqhMtpLoEEN/giphy.gif" alt="Cute bear holding roses">
-
-    <p>SO TE WHATS THE PLAN? HSHSHS</p>
+    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGJhZWs0empicWxuNWQyczhkeDU3N2NyNm9ham9ubG5qeW4xbm5tMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UmnWEKDFoPmcZHmwFl/giphy.gif" alt="Cute bear holding roses">
+    <p>SO TE WHATS THE PLAN?</p>
+    <p>Pasi ko dra Gensan? HAHAH</p>
 </div>
 
 <script>
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const messageBox = document.getElementById("messageBox");
-const mainContainer = document.getElementById("mainContainer");
-const finalMessage = document.getElementById("finalMessage");
+const yesBtn=document.getElementById("yesBtn");
+const noBtn=document.getElementById("noBtn");
+const messageBox=document.getElementById("messageBox");
+const mainContainer=document.getElementById("mainContainer");
+const finalMessage=document.getElementById("finalMessage");
 
-let noClicks = 0;
-const totalClicksToFullScreen = 10;
-const maxScale = 20; 
-const scaleIncrement = maxScale / totalClicksToFullScreen;
+let noClicks=0;
+const totalClicksToFullScreen=10;
+const maxScale=20;
+const scaleIncrement=maxScale/totalClicksToFullScreen;
 
-// Move No button randomly
-function moveNoButton() {
-    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+// Move No button safely within container
+function moveNoButton(){
+    const containerRect = mainContainer.getBoundingClientRect();
+    const yesRect = yesBtn.getBoundingClientRect();
+    const padding = 10; // spacing from edges
+
+    const maxX = containerRect.width - noBtn.offsetWidth - padding;
+    const maxY = containerRect.height - noBtn.offsetHeight - padding;
 
     let newX, newY;
+    let tries = 0;
+
     do {
         newX = Math.random() * maxX;
         newY = Math.random() * maxY;
-    } while (Math.abs(newX - yesBtn.offsetLeft) < yesBtn.offsetWidth + 20 &&
-             Math.abs(newY - yesBtn.offsetTop) < yesBtn.offsetHeight + 20);
+        tries++;
+    } while (
+        newX + noBtn.offsetWidth > yesRect.left - containerRect.left &&
+        newX < yesRect.right - containerRect.left &&
+        newY + noBtn.offsetHeight > yesRect.top - containerRect.top &&
+        newY < yesRect.bottom - containerRect.top &&
+        tries < 50
+    );
 
-    noBtn.style.left = newX + "px";
-    noBtn.style.top = newY + "px";
+    noBtn.style.position="absolute";
+    noBtn.style.left=newX+"px";
+    noBtn.style.top=newY+"px";
 }
 
-// No button click → Yes button grows
-noBtn.addEventListener("click", function(e) {
+// No click → grow Yes
+noBtn.addEventListener("click",function(e){
     e.preventDefault();
     noClicks++;
-
-    // Yes button growth
-    yesBtn.style.transform = `scale(${scaleIncrement * noClicks})`;
-
+    yesBtn.style.transform=`scale(${scaleIncrement*noClicks})`;
     moveNoButton();
 
-    if(noClicks >= 5) {
-        messageBox.style.display = "block";
-        messageBox.innerHTML = "NO CHOICE KA TE 😈";
+    if(noClicks>=5){
+        messageBox.style.display="block";
+        messageBox.innerHTML="NO CHOICE KA TE 😈";
     }
 
-    if(noClicks >= totalClicksToFullScreen) {
-        yesBtn.style.position = "fixed";
-        yesBtn.style.top = 0;
-        yesBtn.style.left = 0;
-        yesBtn.style.width = "100vw";
-        yesBtn.style.height = "100vh";
-        yesBtn.style.borderRadius = 0;
-        yesBtn.style.fontSize = "5rem";
-        yesBtn.style.zIndex = 9999;
-
-        noBtn.style.display = "none";
+    if(noClicks>=totalClicksToFullScreen){
+        yesBtn.style.position="fixed";
+        yesBtn.style.top=0;
+        yesBtn.style.left=0;
+        yesBtn.style.width="100vw";
+        yesBtn.style.height="100vh";
+        yesBtn.style.borderRadius=0;
+        yesBtn.style.fontSize="5rem";
+        yesBtn.style.zIndex=9999;
+        noBtn.style.display="none";
     }
 });
 
-noBtn.addEventListener("mouseenter", moveNoButton);
+noBtn.addEventListener("mouseenter",moveNoButton);
 
-// Yes clicked → final cute theme screen
-yesBtn.addEventListener("click", function(){
-    mainContainer.style.display = "none";
-    finalMessage.style.display = "flex";
+// Yes clicked → final cute screen
+yesBtn.addEventListener("click",function(){
+    mainContainer.style.display="none";
+    finalMessage.style.display="flex";
 
     // Fireworks
-    for(let i=0; i<15; i++){
-        const fwL = document.createElement("div");
+    for(let i=0;i<15;i++){
+        const fwL=document.createElement("div");
         fwL.classList.add("firework","left");
-        fwL.style.top = Math.random()*80 + "vh";
-        fwL.style.animationDelay = Math.random()+"s";
+        fwL.style.top=Math.random()*80+"vh";
+        fwL.style.animationDelay=Math.random()+"s";
         finalMessage.appendChild(fwL);
 
-        const fwR = document.createElement("div");
+        const fwR=document.createElement("div");
         fwR.classList.add("firework","right");
-        fwR.style.top = Math.random()*80 + "vh";
-        fwR.style.animationDelay = Math.random()+"s";
+        fwR.style.top=Math.random()*80+"vh";
+        fwR.style.animationDelay=Math.random()+"s";
         finalMessage.appendChild(fwR);
     }
 
     // Floating hearts
     for(let i=0;i<20;i++){
-        const heart = document.createElement("div");
+        const heart=document.createElement("div");
         heart.classList.add("heartFloat");
-        heart.textContent = "💖";
-        heart.style.left = Math.random() * window.innerWidth + "px";
-        heart.style.animationDuration = (2 + Math.random()*2) + "s";
+        heart.textContent="💖";
+        heart.style.left=Math.random()*window.innerWidth+"px";
+        heart.style.animationDuration=(2+Math.random()*2)+"s";
         finalMessage.appendChild(heart);
     }
 
-    // Sparkle stars
-    for(let i=0; i<25; i++){
-        const star = document.createElement("div");
+    // Sparkles
+    for(let i=0;i<25;i++){
+        const star=document.createElement("div");
         star.classList.add("sparkle");
-        star.style.left = Math.random() * window.innerWidth + "px";
-        star.style.top = Math.random() * window.innerHeight + "px";
-        star.style.animationDelay = Math.random() + "s";
+        star.style.left=Math.random()*window.innerWidth+"px";
+        star.style.top=Math.random()*window.innerHeight+"px";
+        star.style.animationDelay=Math.random()+"s";
         finalMessage.appendChild(star);
     }
 });
 </script>
-
 </body>
 </html>
