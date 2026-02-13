@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Fun 💖</title>
+<style>
+body {
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#ff9ecf,#ff4f81);
+    font-family:Arial,sans-serif;
+    overflow:hidden;
+    flex-direction: column;
+}
+
+.container {
+    text-align:center;
+    padding:5vh 5vw;
+    position: relative;
+    z-index: 1;
+}
+
+h1 { color:white; margin-bottom:3vh; font-size:4vw; }
+
+.buttons {
+    position:relative;
+    height:15vh;
+    margin-top:2vh;
+}
+
+button {
+    padding:1.5vh 3vw;
+    font-size:1.5vw;
+    border:none;
+    cursor:pointer;
+    position:absolute;
+    transition: transform 0.5s ease, all 0.5s ease;
+    z-index: 2;
+    border-radius:20px;
+}
+
+#yesBtn {
+    background: #28a745; 
+    color: white;
+    left:0;
+}
+
+#noBtn {
+    background:white;
+    color:#ff2e63;
+    left:16vw; 
+}
+
+.message {
+    margin-top:2vh;
+    font-size:2vw;
+    color:white;
+    display:none;
+    font-weight:bold;
+    text-align:center;
+    z-index: 3;
+}
+
+.finalMessage {
+    display:none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2vh;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at center, #ffb6c1, #ff69b4);
+    overflow: hidden;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Floating bear GIF with glow */
+.finalMessage img {
+    width: 25vw;
+    max-width:250px;
+    height:auto;
+    border-radius: 20px;
+    box-shadow: 0 0 25px #ff69b4;
+    animation: floatBear 2s ease-in-out infinite alternate;
+}
+
+@keyframes floatBear {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-20px); }
+}
+
+.finalMessage p {
+    font-size:2.5vw;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 2px 2px #ff69b4;
+}
+
+/* Fireworks */
+.firework {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: yellow;
+    border-radius: 50%;
+    opacity: 0;
+    animation: explode 1s infinite;
+}
+
+.firework.left { left: 0; }
+.firework.right { right: 0; }
+
+@keyframes explode {
+    0% { transform: scale(0) translateY(0); opacity: 1;}
+    50% { transform: scale(2) translateY(-20px); opacity: 1;}
+    100% { transform: scale(0) translateY(-40px); opacity: 0;}
+}
+
+/* Floating hearts */
+.heartFloat {
+    position: absolute;
+    font-size: 3vw;
+    animation: floatUp 3s ease-in forwards;
+    opacity: 0;
+}
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity:1; }
+    100% { transform: translateY(-200px); opacity:0; }
+}
+
+/* Sparkles */
+.sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: sparkleAnim 2s infinite;
+}
+@keyframes sparkleAnim {
+    0% { transform: scale(0); opacity: 0.8; }
+    50% { transform: scale(1.5); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    h1 { font-size:6vw; }
+    button { font-size:4vw; padding:2vw 4vw; border-radius:15px; }
+    #yesBtn { left:2vw !important; }
+    #noBtn { left:40vw !important; }
+    .finalMessage img { width:40vw; max-width:200px; }
+    .finalMessage p { font-size:5vw; }
+}
+</style>
+</head>
+<body>
+
+<div class="container" id="mainContainer">
+    <h1>Te!! well u be my valentine HAHA</h1>
+    <div class="buttons">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+    <div class="message" id="messageBox"></div>
+</div>
+
+<div class="finalMessage" id="finalMessage">
+    <div id="fireworks"></div>
+
+    <!-- Animated bear holding roses -->
+    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZzB0ajU1cmdnODVnZDdqcDV2MDY4YWlpcGQ3Z3R3amc1bjU2cTA0NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NxC8VtyxqhMtpLoEEN/giphy.gif" alt="Cute bear holding roses">
+
+    <p>SO TE WHATS THE PLAN? HSHSHS</p>
+</div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const messageBox = document.getElementById("messageBox");
+const mainContainer = document.getElementById("mainContainer");
+const finalMessage = document.getElementById("finalMessage");
+
+let noClicks = 0;
+const totalClicksToFullScreen = 10;
+const maxScale = 20; 
+const scaleIncrement = maxScale / totalClicksToFullScreen;
+
+// Move No button randomly
+function moveNoButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+    let newX, newY;
+    do {
+        newX = Math.random() * maxX;
+        newY = Math.random() * maxY;
+    } while (Math.abs(newX - yesBtn.offsetLeft) < yesBtn.offsetWidth + 20 &&
+             Math.abs(newY - yesBtn.offsetTop) < yesBtn.offsetHeight + 20);
+
+    noBtn.style.left = newX + "px";
+    noBtn.style.top = newY + "px";
+}
+
+// No button click → Yes button grows
+noBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    noClicks++;
+
+    // Yes button growth
+    yesBtn.style.transform = `scale(${scaleIncrement * noClicks})`;
+
+    moveNoButton();
+
+    if(noClicks >= 5) {
+        messageBox.style.display = "block";
+        messageBox.innerHTML = "NO CHOICE KA TE 😈";
+    }
+
+    if(noClicks >= totalClicksToFullScreen) {
+        yesBtn.style.position = "fixed";
+        yesBtn.style.top = 0;
+        yesBtn.style.left = 0;
+        yesBtn.style.width = "100vw";
+        yesBtn.style.height = "100vh";
+        yesBtn.style.borderRadius = 0;
+        yesBtn.style.fontSize = "5rem";
+        yesBtn.style.zIndex = 9999;
+
+        noBtn.style.display = "none";
+    }
+});
+
+noBtn.addEventListener("mouseenter", moveNoButton);
+
+// Yes clicked → final cute theme screen
+yesBtn.addEventListener("click", function(){
+    mainContainer.style.display = "none";
+    finalMessage.style.display = "flex";
+
+    // Fireworks
+    for(let i=0; i<15; i++){
+        const fwL = document.createElement("div");
+        fwL.classList.add("firework","left");
+        fwL.style.top = Math.random()*80 + "vh";
+        fwL.style.animationDelay = Math.random()+"s";
+        finalMessage.appendChild(fwL);
+
+        const fwR = document.createElement("div");
+        fwR.classList.add("firework","right");
+        fwR.style.top = Math.random()*80 + "vh";
+        fwR.style.animationDelay = Math.random()+"s";
+        finalMessage.appendChild(fwR);
+    }
+
+    // Floating hearts
+    for(let i=0;i<20;i++){
+        const heart = document.createElement("div");
+        heart.classList.add("heartFloat");
+        heart.textContent = "💖";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.animationDuration = (2 + Math.random()*2) + "s";
+        finalMessage.appendChild(heart);
+    }
+
+    // Sparkle stars
+    for(let i=0; i<25; i++){
+        const star = document.createElement("div");
+        star.classList.add("sparkle");
+        star.style.left = Math.random() * window.innerWidth + "px";
+        star.style.top = Math.random() * window.innerHeight + "px";
+        star.style.animationDelay = Math.random() + "s";
+        finalMessage.appendChild(star);
+    }
+});
+</script>
+
+</body>
+</html>
